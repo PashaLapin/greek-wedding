@@ -735,8 +735,14 @@ footer.page-footer .signature {
   padding: 0;
   gap: 0;
   overflow: hidden;
+  position: relative;
+  filter: none;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  cursor: zoom-in;
 }
 .couple-photo-frame img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -829,8 +835,11 @@ footer.page-footer .signature {
   padding: 0;
   overflow: hidden;
   position: relative;
+  cursor: zoom-in;
 }
 .carousel-slide figure img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -848,6 +857,59 @@ footer.page-footer .signature {
   font-style: italic;
 }
 .carousel-slide figure:has(img) svg { display: none; }
+
+/* ========== Лайтбокс ========== */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 20, 16, 0.93);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+.lightbox-overlay.active { display: flex; }
+
+.lightbox-overlay img {
+  max-width: min(90vw, 1000px);
+  max-height: 88vh;
+  object-fit: contain;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+  cursor: default;
+  border-top: 3px solid var(--terracotta);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  color: var(--parchment);
+  font-size: 32px;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+}
+.lightbox-close:hover { opacity: 1; }
+
+.lightbox-caption {
+  position: fixed;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(244, 236, 224, 0.6);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+}
 
 .carousel-slide figcaption { font-size: 13px; }
 
@@ -921,8 +983,11 @@ footer.page-footer .signature {
   padding: 0;
   overflow: hidden;
   position: relative;
+  cursor: zoom-in;
 }
 .photo-placeholder img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -935,7 +1000,7 @@ footer.page-footer .signature {
   right: 0;
   background: linear-gradient(transparent, rgba(26, 20, 16, 0.75));
   color: var(--parchment);
-  padding: 20px 16px 10px;
+  padding: 24px 16px 10px;
   font-size: 13px;
   letter-spacing: 0.08em;
   font-style: italic;
