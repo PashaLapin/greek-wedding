@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Πάσα &amp; Ντάσα — Πρόσκληση Γάμου</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plaster:#FBFAF6;      /* белёная штукатурка */
+    --aegean:#1C4E8F;       /* глубокое эгейское море */
+    --dome:#3272C9;         /* купол Санторини */
+    --mist:#DCE9F6;         /* морская дымка */
+    --sand:#C9A24B;         /* золото заката */
+    --ink:#22364E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:linear-gradient(180deg,var(--plaster) 0%, #EDF3FA 70%, var(--mist) 100%);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow-x:hidden;
+  }
+
+  /* ── Карточка-арка (окно часовни) ── */
+  .card{
+    margin:6vh 20px 140px;
+    max-width:520px;
+    width:calc(100% - 40px);
+    background:#fff;
+    border:1px solid rgba(28,78,143,.14);
+    border-radius:260px 260px 22px 22px;
+    box-shadow:0 30px 80px -30px rgba(28,78,143,.35);
+    padding:84px 40px 56px;
+    text-align:center;
+    position:relative;
+    animation:rise 1.1s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+  /* купола над аркой */
+  .domes{
+    position:absolute;
+    top:-34px;left:50%;transform:translateX(-50%);
+    display:flex;gap:14px;align-items:flex-end;
+  }
+  .domes svg{display:block}
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--dome);
+    font-weight:600;
+    margin-bottom:26px;
+  }
+  h1{
+    font-family:'GFS Didot',serif;
+    font-weight:400;
+    font-size:clamp(40px,9vw,58px);
+    line-height:1.08;
+    color:var(--aegean);
+  }
+  h1 .amp{
+    display:block;
+    font-size:.45em;
+    color:var(--sand);
+    margin:8px 0;
+    letter-spacing:.1em;
+  }
+  .tagline{
+    font-family:'GFS Didot',serif;
+    font-size:20px;
+    color:var(--ink);
+    margin-top:22px;
+    font-style:italic;
+    opacity:.85;
+  }
+
+  /* волна-разделитель */
+  .wave-divider{margin:34px auto 30px;width:150px;display:block}
+
+  .details{display:grid;gap:18px}
+  .detail .label{
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--dome);font-weight:700;margin-bottom:5px;
+  }
+  .detail .value{
+    font-family:'GFS Didot',serif;
+    font-size:24px;color:var(--ink);
+  }
+  .detail .value small{font-size:.7em}
+
+  /* ── Обратный отсчёт ── */
+  .count-title{
+    margin:40px 0 16px;
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--dome);font-weight:700;
+  }
+  .countdown{
+    display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+  }
+  .unit{
+    background:var(--aegean);
+    color:#fff;
+    border-radius:14px;
+    min-width:72px;
+    padding:14px 8px 10px;
+    box-shadow:inset 0 -3px 0 rgba(0,0,0,.15);
+  }
+  .unit b{
+    display:block;
+    font-family:'GFS Didot',serif;
+    font-weight:400;
+    font-size:30px;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .unit span{
+    display:block;
+    margin-top:6px;
+    font-size:9.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    opacity:.8;
+  }
+  .married{
+    display:none;
+    font-family:'GFS Didot',serif;
+    font-size:26px;color:var(--sand);
+  }
+
+  .closing{
+    margin-top:40px;
+    font-size:15px;
+    line-height:1.6;
+    color:var(--ink);
+    opacity:.85;
+  }
+  .signature{
+    margin-top:14px;
+    font-family:'GFS Didot',serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--aegean);
+  }
+
+  /* ── Волны внизу страницы ── */
+  .sea{
+    position:fixed;bottom:0;left:0;width:100%;height:110px;
+    pointer-events:none;z-index:-1;
+  }
+  .sea svg{position:absolute;bottom:0;width:200%;height:100%}
+  .sea .w1{animation:drift 16s linear infinite;opacity:.5}
+  .sea .w2{animation:drift 26s linear infinite reverse;opacity:.35}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  @media (prefers-reduced-motion:reduce){
+    .card{animation:none}
+    .sea .w1,.sea .w2{animation:none}
+  }
+  @media (max-width:420px){
+    .card{padding:72px 24px 44px;border-radius:200px 200px 18px 18px}
+    .unit{min-width:64px}
+  }
+</style>
+</head>
+<body>
+
+<main class="card">
+  <div class="domes" aria-hidden="true">
+    <svg width="30" height="30" viewBox="0 0 30 30"><path d="M15 2 C7 8 4 14 4 22 L4 30 L26 30 L26 22 C26 14 23 8 15 2 Z" fill="#3272C9"/><rect x="14" y="0" width="2" height="5" fill="#C9A24B"/></svg>
+    <svg width="42" height="42" viewBox="0 0 30 30"><path d="M15 2 C7 8 4 14 4 22 L4 30 L26 30 L26 22 C26 14 23 8 15 2 Z" fill="#1C4E8F"/><rect x="14" y="0" width="2" height="5" fill="#C9A24B"/></svg>
+    <svg width="30" height="30" viewBox="0 0 30 30"><path d="M15 2 C7 8 4 14 4 22 L4 30 L26 30 L26 22 C26 14 23 8 15 2 Z" fill="#3272C9"/><rect x="14" y="0" width="2" height="5" fill="#C9A24B"/></svg>
+  </div>
+
+  <p class="eyebrow">Σας προσκαλούμε στον γάμο μας</p>
+
+  <h1>Πάσα <span class="amp">&amp;</span> Ντάσα</h1>
+
+  <p class="tagline">Παντρευόμαστε στο Αιγαίο!</p>
+
+  <svg class="wave-divider" viewBox="0 0 150 16" fill="none" aria-hidden="true">
+    <path d="M2 8 Q12 1 22 8 T42 8 T62 8 T82 8 T102 8 T122 8 T142 8" stroke="#3272C9" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+
+  <div class="details">
+    <div class="detail">
+      <div class="label">Ημερομηνία</div>
+      <div class="value">Πέμπτη, 1 Οκτωβρίου 2026</div>
+    </div>
+    <div class="detail">
+      <div class="label">Ώρα</div>
+      <div class="value">15:00</div>
+    </div>
+    <div class="detail">
+      <div class="label">Τοποθεσία</div>
+      <div class="value">Λίνδος, <small>Ρόδος</small></div>
+    </div>
+  </div>
+
+  <p class="count-title">Αντίστροφη μέτρηση</p>
+  <div class="countdown" id="countdown" role="timer" aria-live="polite">
+    <div class="unit"><b id="d">–</b><span>Ημέρες</span></div>
+    <div class="unit"><b id="h">–</b><span>Ώρες</span></div>
+    <div class="unit"><b id="m">–</b><span>Λεπτά</span></div>
+    <div class="unit"><b id="s">–</b><span>Δευτ/πτα</span></div>
+  </div>
+  <p class="married" id="married">Παντρευτήκαμε! 🤍💙</p>
+
+  <p class="closing">Θα χαρούμε πολύ να γιορτάσουμε<br>αυτή τη μέρα μαζί σας!</p>
+  <p class="signature">Με αγάπη, Πάσα &amp; Ντάσα</p>
+</main>
+
+<div class="sea" aria-hidden="true">
+  <svg class="w1" viewBox="0 0 1200 110" preserveAspectRatio="none">
+    <path d="M0 60 Q75 30 150 60 T300 60 T450 60 T600 60 T750 60 T900 60 T1050 60 T1200 60 L1200 110 L0 110 Z" fill="#9DBFE6"/>
+  </svg>
+  <svg class="w2" viewBox="0 0 1200 110" preserveAspectRatio="none">
+    <path d="M0 80 Q100 55 200 80 T400 80 T600 80 T800 80 T1000 80 T1200 80 L1200 110 L0 110 Z" fill="#1C4E8F"/>
+  </svg>
+</div>
+
+<script>
+  // Свадьба: 1 октября 2026, 15:00 по времени Греции (EEST, UTC+3)
+  var target = new Date("2026-10-01T15:00:00+03:00").getTime();
+  var d=document.getElementById("d"),h=document.getElementById("h"),
+      m=document.getElementById("m"),s=document.getElementById("s");
+  function pad(n){return n<10?"0"+n:""+n;}
+  function tick(){
+    var diff = target - Date.now();
+    if(diff<=0){
+      document.getElementById("countdown").style.display="none";
+      document.getElementById("married").style.display="block";
+      clearInterval(timer);
+      return;
+    }
+    d.textContent = Math.floor(diff/86400000);
+    h.textContent = pad(Math.floor(diff/3600000)%24);
+    m.textContent = pad(Math.floor(diff/60000)%60);
+    s.textContent = pad(Math.floor(diff/1000)%60);
+  }
+  tick();
+  var timer = setInterval(tick,1000);
+</script>
+
+</body>
+</html>
